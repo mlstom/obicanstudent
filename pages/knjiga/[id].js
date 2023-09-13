@@ -19,12 +19,24 @@ function TermPage() {
     document.head.appendChild(metaTag);
   }
   useEffect(() => {
+    if(!knjigePrikaz){
+      router.push('/')
+    }
+  }, [])
+  
+  useEffect(() => {
+    if(!knjigePrikaz){
+      router.push('/')
+    }
     if (knjiga && knjiga.googleDriveLink) {
       postaviCspZaGoogleDriveLink(knjiga.googleDriveLink);
     }
   }, [knjiga]);
 
   useEffect(() => {
+    if(!knjigePrikaz){
+      router.push('/')
+    }
     if (id) {
       if (knjigePrikaz) { const pronadjenaKnjiga = pronadjiKnjiguPoId(id, knjigePrikaz); setKnjiga(pronadjenaKnjiga); }
     }
@@ -56,7 +68,7 @@ function TermPage() {
         </Card.Body>
       </Card>
       <p style={{marginTop:'20px', width:'100%',}}>
-        Ovde mozete pristupiti direktno drivu:<br/><a href={knjiga.googleDriveLink}>{knjiga &&knjiga.googleDriveLink}</a>
+        Ovde mozete pristupiti direktno drivu:<br/><a href={knjiga && knjiga.googleDriveLink}>{knjiga &&knjiga.googleDriveLink}</a>
       </p>
       <div style={{ marginTop: '20px', width: '100%', maxWidth: '800px' }}>
         <h1>Pregled PDF-a</h1>
