@@ -4,9 +4,10 @@ export default async function allUsers(req, res) {
     const db = await database()
     const [knjige] = await db.execute("SELECT * FROM Knjige")
     if (req.method === 'POST') {
+        const izmenjeniString = req.body.googleDriveLink.replace(/view/g, "preview");
         await db.execute(`
           INSERT INTO Knjige (naslov, autor, opis, tip, googleDriveLink)
-          VALUES ('${req.body.naslov}', '${req.body.autor}', '${req.body.opis}', '${req.body.tip}', '${req.body.googleDriveLink}')
+          VALUES ('${req.body.naslov}', '${req.body.autor}', '${req.body.opis}', '${req.body.tip}', '${izmenjeniString}')
         `);
     }
     if (req.method === 'DELETE') {

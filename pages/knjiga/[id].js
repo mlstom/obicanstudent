@@ -25,12 +25,18 @@ function TermPage() {
   }, [])
   
   useEffect(() => {
+    if(!knjigePrikaz){
+      router.push('/')
+    }
     if (knjiga && knjiga.googleDriveLink) {
       postaviCspZaGoogleDriveLink(knjiga.googleDriveLink);
     }
   }, [knjiga]);
 
   useEffect(() => {
+    if(!knjigePrikaz){
+      router.push('/')
+    }
     if (id) {
       if (knjigePrikaz) { const pronadjenaKnjiga = pronadjiKnjiguPoId(id, knjigePrikaz); setKnjiga(pronadjenaKnjiga); }
     }
