@@ -93,7 +93,7 @@ const Admin = ({ knjige }) => {
     return (
         <div>
             {user ? (
-                <div style={{padding:'10px 20px'}}>
+                <div style={{ padding: '10px 20px' }}>
                     <div className="container">
                         {createprod && (
                             <div className="row">
@@ -347,20 +347,20 @@ const Admin = ({ knjige }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="row" style={{marginTop:'30px'}}>
+                        <div className="row" style={{ marginTop: '30px' }}>
                             <div className="col-12">
                                 {prpage ? (
-                                    <div className="scroll-container">
+                                    <div className="scroll-container" style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
                                         {knjige.map((knjiga, index) => (
-                                            <div key={knjiga.id} className="product" style={{marginTop:'10px'}}>
-                                                <div className="d-flex justify-content-between">
+                                            <div key={knjiga.id} className="product" style={{ display: 'inline-block', margin: '10px', maxWidth: '100%', textAlign: 'center' }}>
+                                                <div>
                                                     <div>{knjiga.naslov}</div>
                                                     <div>{knjiga.autor}</div>
                                                     <div>{knjiga.opis}</div>
                                                     <div>{knjiga.tip}</div>
                                                     <div>{knjiga.googleDriveLink}</div>
 
-                                                    <div className="d-flex" style={{marginLeft:'10px',gap:'10px'}}>
+                                                    <div className="d-flex" style={{ justifyContent: 'center', gap: '10px' }}>
                                                         <button
                                                             type="button"
                                                             className="btn btn-warning"
@@ -369,14 +369,14 @@ const Admin = ({ knjige }) => {
                                                                 setEdit(true);
                                                                 setIdx(index);
                                                             }}
-                                                            style={{maxHeight:'50px'}}
+                                                            style={{ maxHeight: '50px' }}
                                                         >
                                                             <AiTwotoneEdit fontSize="25px" />
                                                         </button>
                                                         <button
                                                             type="button"
                                                             className="btn btn-danger"
-                                                            style={{maxHeight:'50px'}}
+                                                            style={{ maxHeight: '50px' }}
                                                             onClick={() => {
                                                                 setOdabran(knjiga);
                                                                 setDel(true);
@@ -387,10 +387,10 @@ const Admin = ({ knjige }) => {
                                                         </button>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         ))}
                                     </div>
+
                                 ) : (
                                     <div className="scroll-container"></div>
                                 )}
@@ -399,7 +399,7 @@ const Admin = ({ knjige }) => {
                     </div>
                 </div>
             ) : (
-                <div className="container" style={{display:'flex',justifyContent:'center',alignItems:'center',height:'100vh'}}>
+                <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                     <div className="row">
                         <div className="col-12">
                             <form>
