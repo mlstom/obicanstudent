@@ -369,7 +369,7 @@ const Admin = ({ knjige }) => {
                                                     <td>{knjiga.opis}</td>
                                                     <td>{knjiga.tip}</td>
                                                     <td>{knjiga.googleDriveLink}</td>
-                                                    <td style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
+                                                    <td style={{display:'flex', justifyContent:'center',alignItems:'center',gap:'10px'}}>
                                                         <button
                                                             type="button"
                                                             className="btn btn-warning"
