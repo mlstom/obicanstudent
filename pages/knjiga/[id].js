@@ -43,7 +43,6 @@ function TermPage() {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '5px'
     }}>
 
       <Card style={{ width: '100%', maxWidth: '400px' }}>
@@ -56,6 +55,9 @@ function TermPage() {
           </Card.Footer>
         </Card.Body>
       </Card>
+      <p style={{marginTop:'20px', width:'100%',}}>
+        Ovde mozete pristupiti direktno drivu:<br/><a href={knjiga.googleDriveLink}>{knjiga &&knjiga.googleDriveLink}</a>
+      </p>
       <div style={{ marginTop: '20px', width: '100%', maxWidth: '800px' }}>
         <h1>Pregled PDF-a</h1>
         <iframe src={knjiga && knjiga.googleDriveLink} width="100%" height="600" allow="autoplay"></iframe>
