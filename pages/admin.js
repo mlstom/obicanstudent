@@ -462,7 +462,7 @@ const Admin = ({ knjige }) => {
 };
 
 export async function getServerSideProps() {
-    const knjige = await fetch('http://localhost:3000/api/knjige')
+    const knjige = await fetch('https://obicanstudent.vercel.app/api/knjige')
 
     return {
         props: { knjige: await knjige.json() }

@@ -43,7 +43,7 @@ export default function Home({ knjige1 }) {
 
 export async function getServerSideProps() {
  
-  const response = await fetch('http://localhost:3000/api/knjige'); 
+  const response = await fetch('https://obicanstudent.vercel.app/api/knjige'); 
   const data = await response.json();
 
   return {
