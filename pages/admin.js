@@ -93,7 +93,7 @@ const Admin = ({ knjige }) => {
     return (
         <div>
             {user ? (
-                <div style={{ padding: '10px 20px' }}>
+                <div style={{ padding: '0px 20px', marginTop:'10px' }}>
                     <div className="container">
                         {createprod && (
                             <div className="row">
