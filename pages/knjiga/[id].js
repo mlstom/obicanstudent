@@ -19,13 +19,13 @@ function TermPage() {
     document.head.appendChild(metaTag);
   }
   useEffect(() => {
-    if(!knjigePrikaz){
+    if(knjigePrikaz.lenght == 0){
       router.push('/')
     }
   }, [])
   
   useEffect(() => {
-    if(!knjigePrikaz){
+    if(knjigePrikaz.lenght == 0){
       router.push('/')
     }
     if (knjiga && knjiga.googleDriveLink) {
@@ -34,7 +34,7 @@ function TermPage() {
   }, [knjiga]);
 
   useEffect(() => {
-    if(!knjigePrikaz){
+    if(knjigePrikaz.lenght == 0){
       router.push('/')
     }
     if (id) {
