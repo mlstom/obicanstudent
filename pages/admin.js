@@ -14,6 +14,15 @@ const Admin = ({ knjige }) => {
     const [odabran, setOdabran] = useState({});
     const [createprod, setCreateprod] = useState(false);
     const [idx, setIdx] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     const handleDelete = async () => {
         await fetch('/api/knjige', {
@@ -27,6 +36,7 @@ const Admin = ({ knjige }) => {
         setOdabran(null);
         setIdx(0);
         setDel(false);
+        closeModal();
     };
 
     const handleEdit = async () => {
@@ -49,6 +59,7 @@ const Admin = ({ knjige }) => {
         setOdabran(null);
         setIdx(0);
         setEdit(false);
+        closeModal();
     };
 
     const handleCreate = async () => {
@@ -70,6 +81,7 @@ const Admin = ({ knjige }) => {
         setOdabran(null);
         setIdx(0);
         setCreateprod(false);
+        closeModal();
     };
 
     const proveri = () => {
@@ -93,7 +105,7 @@ const Admin = ({ knjige }) => {
     return (
         <div>
             {user ? (
-                <div style={{ padding: '0px 20px', marginTop:'10px' }}>
+                <div style={{ padding: '0px 20px', marginTop: '10px' }}>
                     <div className="container">
                         {createprod && (
                             <div className="row">
@@ -201,7 +213,143 @@ const Admin = ({ knjige }) => {
                                 </div>
                             </div>
                         )}
-                        {edit && (
+                        
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="d-flex justify-content-between">
+                                    <h2>Običan Student</h2>
+                                    {prpage && (
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            onClick={() => setCreateprod(true)}
+                                        >
+                                            Dodaj PDF
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row" style={{ marginTop: '30px' }}>
+                            <div className="col-12">
+                                <div className="scroll-container" style={{ overflowX: 'auto' }}>
+                                    <table className="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Naslov</th>
+                                                <th>Autor</th>
+                                                <th>Opis</th>
+                                                <th>Tip</th>
+                                                <th>Google Drive Link</th>
+                                                <th>Akcije</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {knjige.map((knjiga, index) => (
+                                                <tr key={knjiga.id}>
+                                                    <td>{knjiga.naslov}</td>
+                                                    <td>{knjiga.autor}</td>
+                                                    <td>{knjiga.opis}</td>
+                                                    <td>{knjiga.tip}</td>
+                                                    <td>{knjiga.googleDriveLink}</td>
+                                                    <td style={{display:'flex', justifyContent:'center',alignItems:'center',gap:'10px'}}>
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-warning"
+                                                            onClick={() => {
+                                                                setOdabran(knjiga);
+                                                                setEdit(true);
+                                                                setIdx(index);
+                                                                openModal();
+                                                            }}
+                                                        >
+                                                            <AiTwotoneEdit fontSize="25px" />
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-danger"
+                                                            onClick={() => {
+                                                                setOdabran(knjiga);
+                                                                setDel(true);
+                                                                setIdx(index);
+                                                                openModal();
+                                                            }}
+                                                        >
+                                                            <AiFillDelete fontSize="25px" />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <div className="row">
+                        <div className="col-12">
+                            <form>
+                                {sve && (
+                                    <p style={{ color: 'red' }}>
+                                        Morate uneti sva polja
+                                    </p>
+                                )}
+                                {nema && (
+                                    <p style={{ color: 'red' }}>
+                                        Uneti podaci nisu tačni
+                                    </p>
+                                )}
+                                <div className="mb-3">
+                                    <label htmlFor="username" className="form-label">
+                                        Username
+                                    </label>
+                                    <input
+                                        type="text"
+                                        autoCorrect="none"
+                                        autoComplete="none"
+                                        className="form-control"
+                                        id="username"
+                                        placeholder="Username"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="password" className="form-label">
+                                        Password
+                                    </label>
+                                    <input
+                                        type="password"
+                                        autoCorrect="none"
+                                        autoComplete="none"
+                                        className="form-control"
+                                        id="password"
+                                        placeholder="Password"
+                                        value={pass}
+                                        onChange={(e) => setPass(e.target.value)}
+                                    />
+                                </div>
+                                <div className="d-flex justify-content-center">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={() => proveri()}
+                                    >
+                                        Potvrdi
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {isModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                    {edit && (
                             <div className="row">
                                 <div className="col-12">
                                     <form>
@@ -286,6 +434,7 @@ const Admin = ({ knjige }) => {
                                                     setOdabran(null);
                                                     setEdit(false);
                                                     setIdx(0);
+                                                    closeModal();
                                                 }}
                                             >
                                                 Cancel
@@ -293,7 +442,7 @@ const Admin = ({ knjige }) => {
                                             <button
                                                 type="button"
                                                 className="btn btn-success"
-                                                onClick={() => handleEdit()}
+                                                onClick={() => {handleEdit();closeModal();}}
                                             >
                                                 Confirm
                                             </button>
@@ -316,6 +465,7 @@ const Admin = ({ knjige }) => {
                                                 setOdabran(null);
                                                 setDel(false);
                                                 setIdx(0);
+                                                closeModal();
                                             }}
                                         >
                                             Cancel
@@ -323,7 +473,7 @@ const Admin = ({ knjige }) => {
                                         <button
                                             type="button"
                                             className="btn btn-success"
-                                            onClick={() => handleDelete()}
+                                            onClick={() =>{ handleDelete(); closeModal();}}
                                         >
                                             Confirm
                                         </button>
@@ -331,134 +481,6 @@ const Admin = ({ knjige }) => {
                                 </div>
                             </div>
                         )}
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="d-flex justify-content-between">
-                                    <h2>Običan Student</h2>
-                                    {prpage && (
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={() => setCreateprod(true)}
-                                        >
-                                            Dodaj PDF
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row" style={{ marginTop: '30px' }}>
-                            <div className="col-12">
-                                <div className="scroll-container" style={{ overflowX: 'auto' }}>
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Naslov</th>
-                                                <th>Autor</th>
-                                                <th>Opis</th>
-                                                <th>Tip</th>
-                                                <th>Google Drive Link</th>
-                                                <th>Akcije</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {knjige.map((knjiga, index) => (
-                                                <tr key={knjiga.id}>
-                                                    <td>{knjiga.naslov}</td>
-                                                    <td>{knjiga.autor}</td>
-                                                    <td>{knjiga.opis}</td>
-                                                    <td>{knjiga.tip}</td>
-                                                    <td>{knjiga.googleDriveLink}</td>
-                                                    <td style={{display:'flex', justifyContent:'center',alignItems:'center',gap:'10px'}}>
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-warning"
-                                                            onClick={() => {
-                                                                setOdabran(knjiga);
-                                                                setEdit(true);
-                                                                setIdx(index);
-                                                            }}
-                                                        >
-                                                            <AiTwotoneEdit fontSize="25px" />
-                                                        </button>
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-danger"
-                                                            onClick={() => {
-                                                                setOdabran(knjiga);
-                                                                setDel(true);
-                                                                setIdx(index);
-                                                            }}
-                                                        >
-                                                            <AiFillDelete fontSize="25px" />
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                    <div className="row">
-                        <div className="col-12">
-                            <form>
-                                {sve && (
-                                    <p style={{ color: 'red' }}>
-                                        Morate uneti sva polja
-                                    </p>
-                                )}
-                                {nema && (
-                                    <p style={{ color: 'red' }}>
-                                        Uneti podaci nisu tačni
-                                    </p>
-                                )}
-                                <div className="mb-3">
-                                    <label htmlFor="username" className="form-label">
-                                        Username
-                                    </label>
-                                    <input
-                                        type="text"
-                                        autoCorrect="none"
-                                        autoComplete="none"
-                                        className="form-control"
-                                        id="username"
-                                        placeholder="Username"
-                                        value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="password" className="form-label">
-                                        Password
-                                    </label>
-                                    <input
-                                        type="password"
-                                        autoCorrect="none"
-                                        autoComplete="none"
-                                        className="form-control"
-                                        id="password"
-                                        placeholder="Password"
-                                        value={pass}
-                                        onChange={(e) => setPass(e.target.value)}
-                                    />
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary"
-                                        onClick={() => proveri()}
-                                    >
-                                        Potvrdi
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </div>
             )}
@@ -467,11 +489,11 @@ const Admin = ({ knjige }) => {
 };
 
 export async function getServerSideProps() {
-    const knjige = await fetch('https://obicanstudent.vercel.app/api/knjige')
+    const knjige = await fetch('https://obicanstudent.vercel.app/api/knjige');
 
     return {
         props: { knjige: await knjige.json() }
-    }
+    };
 }
 
-export default Admin
+export default Admin;
