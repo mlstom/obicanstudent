@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap'; // Uvezite Card komponentu iz react-bootstrap
 
-function CardKnjiga({ id, naslov, autor }) {
+function CardKnjiga({ id, naslov, autor , googleDriveLink}) {
     const [hovered, setHovered] = useState(false);
     const imageUrl='https://th.bing.com/th/id/R.b0de552241ff2fd268ce39381d63c614?rik=rWxbZwCPSgjSqg&pid=ImgRaw&r=0'
     const cardStyles = {
@@ -20,7 +20,7 @@ function CardKnjiga({ id, naslov, autor }) {
         marginRight: '10px', // Dodajte prostor između slike i teksta
       }
     return (
-        <Link href={`/knjiga/${id}`} style={{textDecoration:'none'}}>
+        <a href={`${googleDriveLink}`} target="_blank" style={{textDecoration:'none'}}>
             <Card
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
@@ -38,7 +38,7 @@ function CardKnjiga({ id, naslov, autor }) {
                 </Card.Body>
                 </div>
             </Card>
-        </Link>
+        </a>
     );
 }
 

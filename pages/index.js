@@ -31,7 +31,7 @@ export default function Home({ knjige1 }) {
         <Row>
           {knjigePrikaz && knjigePrikaz.map((knjiga, index) => (
             <div key={index} className="col-lg-4 mb-3">
-              <CardKnjiga naslov={knjiga.naslov} autor={knjiga.autor} id={knjiga.id}  />
+              <CardKnjiga naslov={knjiga.naslov} autor={knjiga.autor} id={knjiga.id} googleDriveLink={knjiga.googleDriveLink} />
             </div>
           ))}
         </Row>

@@ -5,17 +5,9 @@ export default async function allUsers(req, res) {
     const [knjige] = await db.execute("SELECT * FROM Knjige")
     
     if (req.method === 'POST') {
-        let izmenjeniString= req.body.googleDriveLink;
-        const re = /(view|edit)/i;
-        const poklapanja = req.body.googleDriveLink.match(re);
-        if (poklapanja) {
-            const nizPoklapanja = poklapanja.map(p => p.toLowerCase());
-            const prvoPoklapanje = nizPoklapanja[0];
-            izmenjeniString = req.body.googleDriveLink.slice(0, req.body.googleDriveLink.indexOf(prvoPoklapanje) + prvoPoklapanje.length);
-        }
         await db.execute(`
           INSERT INTO Knjige (naslov, autor, opis, tip, googleDriveLink)
-          VALUES ('${req.body.naslov}', '${req.body.autor}', '${req.body.opis}', '${req.body.tip}', '${izmenjeniString}')
+          VALUES ('${req.body.naslov}', '${req.body.autor}', '${req.body.opis}', '${req.body.tip}', '${req.body.googleDriveLink}')
         `);
     }
     if (req.method === 'DELETE') {
